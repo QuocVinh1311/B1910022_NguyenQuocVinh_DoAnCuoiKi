@@ -8,7 +8,7 @@ exports.createProduct = async(req, res, next) => {
         return res.send(newProduct); //Không cần return cũng được
     } catch (err) {
         // return res.status(501).send(err);
-        return next(new ApiError(500, "Có lỗi xảy ra khi lấy thông tin sản phẩm"));
+        return next(new ApiError(500, "Không thể lấy thông tin sản phẩm!"));
     }
 }
 
@@ -17,7 +17,7 @@ exports.findProduct = async(req, res, next) => {
         const list_product = await ProductModel.find();
         return res.send(list_product);
     } catch (error) {
-        return next(new ApiError(500, "Có lỗi xảy ra khi lấy thông tin sản phẩm"));
+        return next(new ApiError(500, "Không thể lấy thông tin sản phẩm!"));
     }
 }
 
@@ -28,7 +28,7 @@ exports.findDetailProduct = async(req, res, next) => {
         const detail_of_product = await ProductModel.findById(id_of_product);
         return res.send(detail_of_product);
     } catch {
-        return next(new ApiError(500, "Có lỗi xảy ra khi lấy thông tin sản phẩm"));
+        return next(new ApiError(500, "Không thể lấy thông tin chi tiết sản phẩm!"));
     }
 }
 
@@ -39,7 +39,7 @@ exports.searchProduct = async(req, res, next) => {
         const list_of_product = await ProductModel.find({ productname: { $regex: `${keyword}`, $options: 'i' } });
         return res.send(list_of_product);
     } catch {
-        return next(new ApiError(500, "Có lỗi xảy ra khi lấy thông tin sản phẩm"));
+        return next(new ApiError(500, "Không thể tìm sản phẩm!"));
     }
 }
 
@@ -50,7 +50,7 @@ exports.updateProduct = async(req, res, next) => {
         const update = await ProductModel.findByIdAndUpdate(req.params.id, updateDoc, options);
         return res.send(update);
     } catch (error) {
-        return next(new ApiError(500, "Có lỗi xảy ra khi cập nhật thông tin sản phẩm"));
+        return next(new ApiError(500, "Không thể cập nhật sản phẩm!"));
     }
 }
 
@@ -61,6 +61,6 @@ exports.deleteProduct = async(req, res, next) => {
         const deleteP = await ProductModel.findByIdAndDelete(req.params.id, options);
         return res.send(deleteP);
     } catch (error) {
-        return next(new ApiError(500, "Có lỗi xảy ra khi xóa sản phẩm"));
+        return next(new ApiError(500, "Không thể xóa sản phẩm!"));
     }
 }

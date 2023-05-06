@@ -46,7 +46,7 @@ export default{
             note: '',
             total: 15000,
             payment: 'Thanh toán tiền mặt',
-            status: 'Chưa xử lý',
+            status: 'Chờ xử lí',
         }
     },
 
@@ -86,7 +86,7 @@ export default{
                     status: this.status,
                 });
 
-                const InfoCustomer = {
+                const InfoCus= {
                     fullname: this.fullname,
                     phonenumber: this.phonenumber,
                     address: this.address,
@@ -95,7 +95,8 @@ export default{
                     note: this.note,
                 }
                 localStorage.setItem("InfoCus", JSON.stringify(InfoCus));
-                this.$router.push({ name: 'OrderSuccess' });
+                alert("Đặt hàng thành công!");
+                this.$router.push({ name: 'Home' });
             }catch(error){
                 alert("Đặt hàng thất bại, vui lòng thử lại!");
             }
@@ -196,7 +197,7 @@ export default{
                             <select name="payment_order" id="payment_order" class="form-control" required v-model="payment">
                                 <option value="Thanh toán tiền mặt" selected>Thanh toán tiền mặt</option>
                                 <option value="Chuyển khoản ATM">Chuyển khoản</option>
-                                <option value="Thanh toán bằng hình thức cà thẻ">Thanh toán bằng hình thức cà thẻ</option>
+                                <option value="Thanh toán bằng hình thức quẹt thẻ">Thanh toán bằng hình thức quẹt thẻ</option>
                             </select>
                         </div>
                         <div class="mt-5">

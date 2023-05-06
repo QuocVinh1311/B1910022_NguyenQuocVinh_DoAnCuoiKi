@@ -37,7 +37,7 @@ const orderSchema = new mongoose.Schema({
     status: {
         type: String,
         require: true,
-        default: "Chưa xử lý",
+        default: "Chờ xử lý",
     }
 }, { timestamps: true });
 

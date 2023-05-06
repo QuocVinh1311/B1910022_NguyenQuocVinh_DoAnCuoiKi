@@ -12,7 +12,7 @@ exports.register = async(req, res, next) => {
 
         const emailExist = await UserModel.findOne({ email: req.body.email });
         if (emailExist) {
-            return next(new ApiError(400, "Email đã tồn tại, hãy dùng email khác"));
+            return next(new ApiError(400, "Email đã tồn tại!"));
         }
 
 
@@ -25,35 +25,33 @@ exports.register = async(req, res, next) => {
 
         // Lưu vào DB
         const user = await newUser.save();
-        return res.send(user); //trả về thông tin user vừa tạo
+        return res.send(user);
     } catch (error) {
-        return next(new ApiError(500, "Có lỗi xảy ra khi đăng ký tài khoản"));
+        return next(new ApiError(500, "Không thể đăng kí tài khoản!"));
     }
 };
 
 exports.login = async(req, res, next) => {
     try {
-        //Tìm user khớp với email nhập vào
+
         const user = await UserModel.findOne({ email: req.body.email });
         if (!user) {
-            //Nếu không tìm thấy user
+
             return next(new ApiError(400, "Email chưa được đăng ký"));
         }
 
         const validPassword = await bcrypt.compare(req.body.password, user.password);
 
-        //Nếu password không đúng
         if (!validPassword) {
             return next(new ApiError(400, "Sai mật khẩu"));
         }
 
-        //Nếu cả email và password đúng
         if (user && validPassword) {
             return res.send(user);
         }
 
     } catch (error) {
-        return next(new ApiError(500, "Có lỗi xảy ra khi đăng nhập"));
+        return next(new ApiError(500, "Không thể đăng nhập"));
     }
 };
 
@@ -83,11 +81,11 @@ exports.updatePassword = async(req, res, next) => {
         if (validPassword) {
             const new_password = req.body.new_password;
 
-            //hash password do người dùng nhập vào
+
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(new_password, salt);
 
-            //Tiến hành cập nhật vào CSDL
+
             const options = { returnDocument: "after" };
             const updateDoc = {
                 password: hashed,

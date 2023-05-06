@@ -137,7 +137,7 @@
      
   </body>
   <div>\
-    <AppFooter />
+    <AppFooter></AppFooter>
   </div>
 </template>
 
